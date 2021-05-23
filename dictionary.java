@@ -24,10 +24,46 @@ public class Dictionary {
 	   System.out.println("Enter the word you want to search: ");
 	   String searchWord;
 	   searchWord=sc.next();
-	   Dictionary.search(searchWord);
+	   	   Boolean search = false;
+	   search = Dictionary.search(searchWord);
+	   if(!search)
+	   {
+		   System.out.println("Word doesn't exist");
+	   }
+	   
 	   String word=" ";
-	   Dictionary.display(Dictionary.root,word);
+	   Dictionary.display(Dictionary.getRoot(),word);
+	   
+	
+	   System.out.println("Enter the word you want to delete: ");
+	   String deleteWord;
+	   deleteWord=sc.next();
+	   Boolean delete = false;
+	   delete = Dictionary.delete(deleteWord);
+	   if(delete)
+	   {
+		   System.out.println("Word deleted");
+	   }
+	   else
+	   {
+		   System.out.println("Word doesn't exist");
+	   }
+	   
+	   Dictionary.display(Dictionary.getRoot(),word);
+
+	   String updateWord;
+	   System.out.println("Enter the word to be updated ");
+	   updateWord = sc.next();
+	   Dictionary.update(Dictionary.getRoot(), updateWord);
+	   
+	   String prefixWord;
+	   System.out.println("Enter the prefix :");
+	   prefixWord = sc.next();
+	   Dictionary.displayWithPrefix(Dictionary.getRoot(), prefixWord);
+	   
 	   sc.close();
+	   
+
 	}
 
 }
