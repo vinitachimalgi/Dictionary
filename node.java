@@ -13,7 +13,7 @@ public class Node {
 			isWord=false;
 			children=new Node[26];
 		}
-	public setMeaning(String newMeaning)
+	public void setMeaning(String newMeaning)
 	{
 		this.meaning=newMeaning;
 	}
