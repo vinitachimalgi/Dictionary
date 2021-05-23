@@ -82,21 +82,6 @@ public class Trie {
 			
 		}
 		
-		private Node getNode(String word)
-		{
-			Node curr=root;
-			for(int i=0;i<word.length();i++)
-			{
-				char a=word.charAt(i);
-				if(curr.children[a-'a']==null)
-				{
-					return null;
-				}
-				curr=curr.children[a-'a'];
-			}
-			return curr;
-		}
-		
 		public Boolean delete(String word)
 		{
 			boolean isPresent = false;
