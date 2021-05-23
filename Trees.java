@@ -122,12 +122,22 @@ public class Trie {
 		        return null;
 		    }
 	
-	  public update(Node root,String word)
+	  public void update(Node root,String word)
 	  {
 		  boolean isPresent=((getNode(word)!=null)&&(getNode(word).isWord));
 		  if(isPresent)
 		  {
-			  getNode(word).meaning
+			  String newMeaning;
+			  Scanner sc=new Scanner(System.in);
+			  System.out.println("Enter the updated meaning: ");
+			  newMeaning=sc.nextLine();
+			  getNode(word).setMeaning(newMeaning);
+		  }
+		  else
+		  {
+			  System.out.println("Sorry you cannot update the word since the Word doesn't exist");
+		  }
+	  }
 
 }
 
