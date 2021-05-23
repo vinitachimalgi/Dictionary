@@ -121,8 +121,13 @@ public class Trie {
 		        }
 		        return null;
 		    }
+	
+	  public update(Node root,String word)
+	  {
+		  boolean isPresent=((getNode(word)!=null)&&(getNode(word).isWord));
+		  if(isPresent)
+		  {
+			  getNode(word).meaning
 
 }
 
-
-}
