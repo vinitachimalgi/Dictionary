@@ -1,4 +1,5 @@
 package trees;
+import java.util.Scanner
 
 public class Trie {
 	private Node root;
@@ -132,12 +133,22 @@ public class Trie {
 			  System.out.println("Enter the updated meaning: ");
 			  newMeaning=sc.nextLine();
 			  getNode(word).setMeaning(newMeaning);
+			  System.out.println("Word updated");
 		  }
 		  else
 		  {
 			  System.out.println("Sorry you cannot update the word since the Word doesn't exist");
 		  }
 	  }
-
+	      
+	  public void displayWithPrefix(Node root,String prefix)
+	  {
+	       boolean isPresent=(getNode(word)!=null);
+	       if(isPresent)
+	       {
+	          Node last=getNode(prefix);
+		  display(last,prefix);
+	       }
+	   }
 }
 
