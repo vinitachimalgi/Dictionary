@@ -1,12 +1,17 @@
 package trees;
 
 public class Trie {
-	public Node root;
+	private Node root;
 	
 	public Trie()
 	{
 		root=new Node('\0');
 	}	
+	
+	public Node getRoot() {
+		return root;
+	}
+	
 	public void insert(String word,String meaning)
 	{
 		Node curr=root;
@@ -34,23 +39,6 @@ public class Trie {
 			System.out.println("Word doesn't exist");
 		}
 	}
-	public void display(Node root,String word)
-	{
-		Node curr=root;
-		if(root.isWord)
-		{
-			word=word+curr.c;
-			System.out.print(word+": "+root.meaning+",");
-		}
-		for(int i=0;i<26;i++)
-		{
-			if(curr.children[i]!=null)
-			{
-				word=word+curr.c;
-				display(curr.children[i],word);
-			}
-		}
-	}
 	private Node getNode(String word)
 	{
 		Node curr=root;
@@ -65,5 +53,91 @@ public class Trie {
 		}
 		return curr;
 	}
+	
+		public void display(Node root,String word)
+		{
+			if(root == null)
+			{
+				return;
+			}
+			
+			if(root.isWord)
+			{
+				//word=word+root.c;
+				System.out.print(word+": "+root.meaning+",");
+				
+			}
+			
+			for(int i=0;i<26;i++)
+			{
+				if(root.children[i] != null)
+				{
+					word = word + root.children[i].c;
+					display(root.children[i], word);	// cat: animal, cdog: animal
+					word = word.substring(0, word.length()-1);
+				}
+
+			}
+
+			
+		}
+		
+		private Node getNode(String word)
+		{
+			Node curr=root;
+			for(int i=0;i<word.length();i++)
+			{
+				char a=word.charAt(i);
+				if(curr.children[a-'a']==null)
+				{
+					return null;
+				}
+				curr=curr.children[a-'a'];
+			}
+			return curr;
+		}
+		
+		public Boolean delete(String word)
+		{
+			boolean isPresent = false;
+			isPresent = ((getNode(word)!=null)&&(getNode(word).isWord));
+			if(isPresent)
+			{
+				deleteWord(root, word, 0);
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+		
+		   private Node deleteWord(Node node, String word, int i)
+		   {
+		        if (i == word.length())	//if end of word is reached
+		        {
+		            node.isWord = false;
+		        } 
+		        else 
+		        {
+		            int index = word.charAt(i) - 'a';
+		            node.children[index] = deleteWord(node.children[index], word, i + 1);
+		        }
+		        if (node.isWord) 
+		        {
+		            return node;
+		        }		        
+		        for(int n=0;n<26;n++)	//apple and apples 'e' has a node for 's' hence it'll return node otherwise would have returned null
+		        {
+		        	if(node.children[n] != null)
+		        	{
+		        			return node;
+		        	}
+		        }
+		        return null;
+		    }
+
+}
+
 
 }
