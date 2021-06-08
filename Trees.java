@@ -28,18 +28,20 @@ public class Trie {
 		curr.isWord=true;
 		curr.meaning=meaning;
 	}
-	public void search(String word)
+	
+	public Boolean search(String word)
 	{
-		boolean isPresent=((getNode(word)!=null)&&(getNode(word).isWord));
+		boolean isPresent= false;
+		isPresent = ((getNode(word)!=null)&&(getNode(word).isWord));
 		if(isPresent)
 		{
+			System.out.println("\n Word found!!\n");
+			System.out.print(" Meaning of " + word + " is : ");
 			System.out.println(getNode(word).meaning);
 		}
-		else
-		{
-			System.out.println("Word doesn't exist");
-		}
+		return isPresent;
 	}
+	
 	private Node getNode(String word)
 	{
 		Node curr=root;
@@ -55,33 +57,31 @@ public class Trie {
 		return curr;
 	}
 	
-		public void display(Node root,String word)
+	public void display(Node root,String word)
+	{
+		if(root == null)
 		{
-			if(root == null)
-			{
-				return;
-			}
-			
-			if(root.isWord)
-			{
-				//word=word+root.c;
-				System.out.print(word+": "+root.meaning+",");
-				
-			}
-			
-			for(int i=0;i<26;i++)
-			{
-				if(root.children[i] != null)
-				{
-					word = word + root.children[i].c;
-					display(root.children[i], word);	// cat: animal, cdog: animal
-					word = word.substring(0, word.length()-1);
-				}
-
-			}
-
-			
+			return;
 		}
+			
+		if(root.isWord)
+		{
+			System.out.println("\n" + word+" : "+root.meaning);		
+		}
+			
+		for(int i=0;i<26;i++)
+		{
+			if(root.children[i] != null)
+			{
+				word = word + root.children[i].c;
+				display(root.children[i], word);	
+				word = word.substring(0, word.length()-1);
+			}
+
+		}
+		
+	}
+
 		
 		public Boolean delete(String word)
 		{
@@ -123,27 +123,29 @@ public class Trie {
 		        return null;
 		    }
 	
-	  public void update(Node root,String word)
-	  {
-		  boolean isPresent=((getNode(word)!=null)&&(getNode(word).isWord));
-		  if(isPresent)
-		  {
-			  String newMeaning;
-			  Scanner sc=new Scanner(System.in);
-			  System.out.println("Enter the updated meaning: ");
-			  newMeaning=sc.nextLine();
-			  getNode(word).setMeaning(newMeaning);
-			  System.out.println("Word updated");
-		  }
-		  else
-		  {
-			  System.out.println("Sorry you cannot update the word since the Word doesn't exist");
-		  }
-	  }
+	public void update(Node root,String word)
+	{
+		boolean isPresent=((getNode(word)!=null)&&(getNode(word).isWord));
+		if(isPresent)
+		{
+			String newMeaning;
+		   	Scanner sc = new Scanner(System.in);
+		   	System.out.print("\n Enter the updated meaning : ");
+		   	newMeaning=sc.nextLine();
+		   	getNode(word).setMeaning(newMeaning);
+		   	System.out.println(" Word updated");
+		   			  		   		  }
+		else
+		{
+			System.out.println(" Sorry you cannot update the word since the word doesn't exist");
+		}
+		   		  
+	}
+
 	      
 	  public void displayWithPrefix(Node root,String prefix)
 	  {
-	       boolean isPresent=(getNode(word)!=null);
+	       boolean isPresent=(getNode(prefix)!=null);
 	       if(isPresent)
 	       {
 	          Node last=getNode(prefix);
